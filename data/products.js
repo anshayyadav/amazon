@@ -9,18 +9,14 @@ export function getProduct(productId) {
 
   return matchingProduct;
 }
-export let products = [];
-// here load products to empty string []
-// now create function to get the product using http request by using XML here we use GET data from the URL
-
 // Define Product and Clothing classes
-class Product {
+export class Product {
   constructor(details) {
     Object.assign(this, details);
   }
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   constructor(details) {
     super(details);
     this.sizeChartLink = details.sizeChartLink || "";
@@ -99,20 +95,6 @@ export function getProduct(productId) {
 export function loadproducts(callback) {
   if (callback) {
     callback();
-  }
-}
-
-// Define Product and Clothing classes
-export class Product {
-  constructor(details) {
-    Object.assign(this, details);
-  }
-}
-
-export class Clothing extends Product {
-  constructor(details) {
-    super(details);
-    this.sizeChartLink = details.sizeChartLink || "";
   }
 }
 

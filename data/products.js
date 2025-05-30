@@ -27,52 +27,94 @@ class Clothing extends Product {
   }
 }
 
-export function loadProductsFetch() {
-  const promise = fetch("http://supersimplebackend.dev/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((productData) => {
-      products = productData.map((productDetails) => {
-        return productDetails.type === "clothing"
-          ? new Clothing(productDetails)
-          : new Product(productDetails);
-      });
+// Use local product data
+export const products = [
+  {
+    id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+    rating: {
+      stars: 4.5,
+      count: 87
+    },
+    priceCents: 1090,
+    keywords: [
+      "socks",
+      "sports",
+      "apparel"
+    ]
+  },
+  {
+    id: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+    image: "images/products/intermediate-composite-basketball.jpg",
+    name: "Intermediate Size Basketball",
+    rating: {
+      stars: 4,
+      count: 127
+    },
+    priceCents: 2095,
+    keywords: [
+      "sports",
+      "basketball",
+      "equipment"
+    ]
+  },
+  {
+    id: "3",
+    image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+    name: "Adults Plain Cotton T-Shirt - 2 Pack",
+    rating: {
+      stars: 4.5,
+      count: 56
+    },
+    priceCents: 799,
+    keywords: [
+      "t-shirt",
+      "apparel",
+      "clothing"
+    ]
+  },
+  {
+    id: "4",
+    image: "images/products/black-2-slot-toaster.jpg",
+    name: "2 Slot Toaster - Black",
+    rating: {
+      stars: 4.5,
+      count: 56
+    },
+    priceCents: 799,
+    keywords: [
+      "toaster",
+      "kitchen",
+      "appliances"
+    ]
+  }
+];
 
-      console.log("Products loaded:", products);
-      
-    });
-    return promise;
-
+// Export functions for product operations
+export function getProduct(productId) {
+  return products.find(product => product.id === productId);
 }
-// loadProductsFetch().then (() => {
-
-// });
 
 export function loadproducts(callback) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener("load", () => {
-    products = JSON.parse(xhr.response).map((productDetails) => {
-      return productDetails.type === "clothing"
-        ? new Clothing(productDetails)
-        : new Product(productDetails);
-    });
-
-    console.log("Products loaded:", products);
-    if (callback) {
-      callback();
-    }
-  });
-
-  xhr.open("GET", "http://supersimplebackend.dev/products");
-  xhr.send();
+  if (callback) {
+    callback();
+  }
 }
-loadproducts(() => {
-  console.log("Product list is ready for use.");
-});
 
-// products are now come from the backend using APIs
+// Define Product and Clothing classes
+export class Product {
+  constructor(details) {
+    Object.assign(this, details);
+  }
+}
+
+export class Clothing extends Product {
+  constructor(details) {
+    super(details);
+    this.sizeChartLink = details.sizeChartLink || "";
+  }
+}
 
 // export const products = [
 //   {
